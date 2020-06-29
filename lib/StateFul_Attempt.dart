@@ -127,13 +127,46 @@ class _TextBlocksState extends State<TextBlocks> {
     super.dispose();
   }
 
+  void back() {
+    Navigator.pop(context);
+  }
+
+  void passwordField() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (BuildContext context) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.red[500],
+            title: Center(child: Text('Password')),
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Enter password here',
+                  icon: Icon(
+                    Icons.security,
+                    color: Colors.blueAccent,
+                  ),
+                ),
+                onEditingComplete: back,
+              ),
+              Text(result),
+            ],
+          ),
+        );
+      }),
+    );
+  }
+
   void openChatBox() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (BuildContext context) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('CHATBOX'),
+              title: Text('CHAT BOX'),
             ),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -143,9 +176,9 @@ class _TextBlocksState extends State<TextBlocks> {
                   autofocus: true,
                   onEditingComplete: userName,
                   onSubmitted: (String str) {
-                    setState(() {
-                      result = str;
-                    });
+                    result = str;
+                    Navigator.pop(context);
+                    passwordField();
                   },
                   decoration: InputDecoration(
                     enabled: true, //enables/disables the writing field
@@ -157,19 +190,19 @@ class _TextBlocksState extends State<TextBlocks> {
                     ),
                   ),
                 ),
-                TextField(
-                  //password text field
-                  focusNode: myFocusNode,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                      hintText: "Enter your password",
-                      icon: Icon(
-                        Icons.security,
-                        color: Colors.blueAccent,
-                      )),
-                ),
-                Text('The User name chosen by you is :'),
-                Text(result),
+//                TextField(
+//                  //password text field
+//                  focusNode: myFocusNode,
+//                  obscureText: true,
+//                  decoration: InputDecoration(
+//                      hintText: "Enter your password",
+//                      icon: Icon(
+//                        Icons.security,
+//                        color: Colors.blueAccent,
+//                      )),
+//                ),
+                //Text('The User name chosen by you is :'),
+//                Text(result),
               ],
             ),
           );
